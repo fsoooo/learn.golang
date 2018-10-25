@@ -18,12 +18,52 @@ Go中的struct与C中的struct非常相似，并且Go没有class，代替了clas
 可以使用匿名字段指针
  */
 type Student struct {
-  name string
-  sex int
+	name  string
+	sex   int
+	age   int
+	phone int
+}
+type T struct {
+	Name string
+	Age  int
+}
+/**
+在go语言中，定义struct的时候，
+除了类型和字段名一一对应，也可以支持不写字段名，
+而只写类型，也就是匿名字段。
+*/
+//匿名字段
+type Cat struct {
+	int
+	string
 }
 
-func main()  {
-  student := Student{"xiaoming",1}
-  fmt.Println(student.name)
-  fmt.Println(student.sex)
+
+func main() {
+	student := Student{"xiaoming", 1, 18, 15701681524}
+	fmt.Println(student.name)
+	fmt.Println(student.sex)
+	fmt.Println(student.age)
+	fmt.Println(student.phone)
+
+	t := T{}
+	fmt.Println(t)
+	t.Name = "astar"
+	t.Age = 10
+	fmt.Println(t)
+	t.Add()
+
+	cat := Cat{12,"小花"}
+	fmt.Println(cat.string,cat.int);
+}
+/**
+新增了一个变种函数(其实是方法)，(t *T) 这就是给这个结构体绑定函数，
+然后在结构体中就可以直接调用Add这个方法
+GO就是以这种形式来实现面像对象的思想
+如果外部结构和嵌入结构存在同名方法，则优先调用外部结构的方法
+类型别名不会拥有底层类型所附带的方法
+方法可以调用结构中的非公开字段
+ */
+func (t *T) Add() {
+	fmt.Println(t.Age, t.Name)
 }
